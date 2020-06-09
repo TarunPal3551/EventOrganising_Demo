@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
+        android:gravity="center"
         android:text="No Event Found....Press + button for creating new events"
         android:visibility="gone">
 

@@ -81,12 +81,7 @@ public class Main2Activity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
-        textInputLayoutDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picker.show(getSupportFragmentManager(), picker.toString());
-            }
-        });
+
         textInputLayoutDate.setClickable(true);
         textInputLayoutTime.setClickable(true);
         textInputLayoutDate.getEditText().setOnClickListener(new View.OnClickListener() {
@@ -150,7 +145,7 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 if (validate()) {
                     progressDialog.show();
-                    String eventId = String.valueOf(System.currentTimeMillis());
+                    final String eventId = String.valueOf(System.currentTimeMillis());
                     Event event = new Event(name, date, eventId, time, switchReminder.isChecked(), "");
                     mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("events").child(eventId).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -162,6 +157,11 @@ public class Main2Activity extends AppCompatActivity {
                                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
+//                                Intent intent = new Intent(getBaseContext(), ReminderReciver.class);
+//                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
+//                                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
+
                             } else {
 
                                 Toast.makeText(Main2Activity.this, "Event Created Failed", Toast.LENGTH_SHORT).show();
