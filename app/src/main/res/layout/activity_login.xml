@@ -7,22 +7,12 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginLeft="-10dp"
-        android:layout_marginRight="-10dp"
-
-        android:scaleType="fitXY">
-
-    </ImageView>
-
-    <ImageView
         android:id="@+id/image1"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:scaleType="fitXY">
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo_login">
 
     </ImageView>
 
@@ -36,7 +26,6 @@
             android:id="@+id/lay1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:layout_centerInParent="true"
             android:orientation="vertical">
 

@@ -66,6 +66,7 @@ public class HistoryFragment extends Fragment {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                eventArrayList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     // TODO: handle the post
 //                    Event event =new Event(postSnapshot.child("name").getValue(),
