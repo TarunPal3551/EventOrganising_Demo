@@ -1,5 +1,6 @@
 package com.example.eventorganising_demo;
 
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,11 +41,16 @@ public class Main2Activity extends AppCompatActivity {
     MaterialButton materialButtonSave;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Processing...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
         textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutName);
         textInputLayoutDate = (TextInputLayout) findViewById(R.id.textInputLayoutDate);
         textInputLayoutTime = (TextInputLayout) findViewById(R.id.textInputLayoutTime);
@@ -143,17 +149,21 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validate()) {
+                    progressDialog.show();
                     String eventId = String.valueOf(System.currentTimeMillis());
                     Event event = new Event(name, date, eventId, time, switchReminder.isChecked(), "");
                     mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("events").child(eventId).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            progressDialog.dismiss();
                             if (task.isSuccessful()) {
+
                                 Toast.makeText(Main2Activity.this, "Event Created Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
+
                                 Toast.makeText(Main2Activity.this, "Event Created Failed", Toast.LENGTH_SHORT).show();
 
                             }
